@@ -1,8 +1,17 @@
 //
-//  Copyright (c) 2013-2014 Cédric Luthi. All rights reserved.
+//  Copyright (c) 2013-2016 Cédric Luthi. All rights reserved.
 //
 
+#if !__has_feature(nullability)
+#define NS_ASSUME_NONNULL_BEGIN
+#define NS_ASSUME_NONNULL_END
+#define nullable
+#define null_resettable
+#endif
+
 #import <MediaPlayer/MediaPlayer.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  -------------------
@@ -31,9 +40,12 @@ MP_EXTERN NSString *const XCDYouTubeVideoUserInfoKey;
  *
  *  Use UIViewController’s `presentMoviePlayerViewControllerAnimated:` method to play a YouTube video fullscreen.
  *
- *  Use the `presentInView:` method to play a YouTube video inline.
+ *  Use the `<presentInView:>` method to play a YouTube video inline.
  */
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 @interface XCDYouTubeVideoPlayerViewController : MPMoviePlayerViewController
+#pragma clang diagnostic pop
 
 /**
  *  ------------------
@@ -44,13 +56,13 @@ MP_EXTERN NSString *const XCDYouTubeVideoUserInfoKey;
 /**
  *  Initializes a YouTube video player view controller
  *
- *  @param videoIdentifier A 11 characters YouTube video identifier. If the video identifier is invalid (including nil) the `MPMoviePlayerPlaybackDidFinishNotification` will be posted with a `MPMovieFinishReasonPlaybackError` reason.
+ *  @param videoIdentifier A 11 characters YouTube video identifier. If the video identifier is invalid the `MPMoviePlayerPlaybackDidFinishNotification` will be posted with a `MPMovieFinishReasonPlaybackError` reason.
  *
  *  @return An initialized YouTube video player view controller with the specified video identifier.
  *
- *  @discussion You pass a nil videoIdentifier and set the `videoIdentifier` property later.
+ *  @discussion You can pass a nil *videoIdentifier* (or use the standard `init` method instead) and set the `<videoIdentifier>` property later.
  */
-- (instancetype) initWithVideoIdentifier:(NSString *)videoIdentifier __attribute__((objc_designated_initializer));
+- (instancetype) initWithVideoIdentifier:(nullable NSString *)videoIdentifier NS_DESIGNATED_INITIALIZER;
 
 /**
  *  ------------------------------------
@@ -61,7 +73,7 @@ MP_EXTERN NSString *const XCDYouTubeVideoUserInfoKey;
 /**
  *  The 11 characters YouTube video identifier.
  */
-@property (nonatomic, copy) NSString *videoIdentifier;
+@property (nonatomic, copy, nullable) NSString *videoIdentifier;
 
 /**
  *  ------------------------------------------
@@ -74,11 +86,11 @@ MP_EXTERN NSString *const XCDYouTubeVideoUserInfoKey;
  *
  *  Defaults to @[ XCDYouTubeVideoQualityHTTPLiveStreaming, @(XCDYouTubeVideoQualityHD720), @(XCDYouTubeVideoQualityMedium360), @(XCDYouTubeVideoQualitySmall240) ]
  *
- *  You should set this property right after calling the `initWithVideoIdentifier:` method. Setting this property to nil restores its default values.
+ *  You should set this property right after calling the `<initWithVideoIdentifier:>` method. Setting this property to nil restores its default values.
  *
- *  @see `XCDYouTubeVideoQuality`
+ *  @see XCDYouTubeVideoQuality
  */
-@property (nonatomic, copy) NSArray *preferredVideoQualities;
+@property (nonatomic, copy, null_resettable) NSArray *preferredVideoQualities;
 
 /**
  *  ------------------------
@@ -109,3 +121,5 @@ MP_EXTERN NSString *const XCDMetadataKeyTitle DEPRECATED_MSG_ATTRIBUTE("Use XCDY
 MP_EXTERN NSString *const XCDMetadataKeySmallThumbnailURL DEPRECATED_MSG_ATTRIBUTE("Use XCDYouTubeVideoUserInfoKey instead.");
 MP_EXTERN NSString *const XCDMetadataKeyMediumThumbnailURL DEPRECATED_MSG_ATTRIBUTE("Use XCDYouTubeVideoUserInfoKey instead.");
 MP_EXTERN NSString *const XCDMetadataKeyLargeThumbnailURL DEPRECATED_MSG_ATTRIBUTE("Use XCDYouTubeVideoUserInfoKey instead.");
+
+NS_ASSUME_NONNULL_END

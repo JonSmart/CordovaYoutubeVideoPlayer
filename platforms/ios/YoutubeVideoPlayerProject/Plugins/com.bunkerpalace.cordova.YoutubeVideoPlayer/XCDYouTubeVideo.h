@@ -1,13 +1,21 @@
 //
-//  Copyright (c) 2013-2014 Cédric Luthi. All rights reserved.
+//  Copyright (c) 2013-2016 Cédric Luthi. All rights reserved.
 //
+
+#if !__has_feature(nullability)
+#define NS_ASSUME_NONNULL_BEGIN
+#define NS_ASSUME_NONNULL_END
+#define nullable
+#endif
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
- *  The quality of YouTube videos. These values are used as keys in the `streamURLs` property of the `XCDYouTubeVideo` class.
+ *  The quality of YouTube videos. These values are used as keys in the `<[XCDYouTubeVideo streamURLs]>` property.
  *
- *  The constant numbers are the YouTube [itag](https://en.wikipedia.org/wiki/YouTube#Quality_and_codecs) values.
+ *  The constant numbers are the YouTube [itag](https://en.wikipedia.org/wiki/YouTube#Quality_and_formats) values.
  */
 typedef NS_ENUM(NSUInteger, XCDYouTubeVideoQuality) {
 	/**
@@ -43,7 +51,7 @@ typedef NS_ENUM(NSUInteger, XCDYouTubeVideoQuality) {
 extern NSString *const XCDYouTubeVideoQualityHTTPLiveStreaming;
 
 /**
- *  Represents a YouTube video. Use the `-[XCDYouTubeClient getVideoWithIdentifier:completionHandler:]` method to obtain a `XCDYouTubeVideo` object.
+ *  Represents a YouTube video. Use the `<-[XCDYouTubeClient getVideoWithIdentifier:completionHandler:]>` method to obtain a `XCDYouTubeVideo` object.
  */
 @interface XCDYouTubeVideo : NSObject <NSCopying>
 
@@ -69,25 +77,39 @@ extern NSString *const XCDYouTubeVideoQualityHTTPLiveStreaming;
 /**
  *  A thumbnail URL for an image of small size, i.e. 120×90. May be nil.
  */
-@property (nonatomic, readonly) NSURL *smallThumbnailURL;
+@property (nonatomic, readonly, nullable) NSURL *smallThumbnailURL;
 /**
  *  A thumbnail URL for an image of medium size, i.e. 320×180, 480×360 or 640×480. May be nil.
  */
-@property (nonatomic, readonly) NSURL *mediumThumbnailURL;
+@property (nonatomic, readonly, nullable) NSURL *mediumThumbnailURL;
 /**
  *  A thumbnail URL for an image of large size, i.e. 1'280×720 or 1'980×1'080. May be nil.
  */
-@property (nonatomic, readonly) NSURL *largeThumbnailURL;
+@property (nonatomic, readonly, nullable) NSURL *largeThumbnailURL;
 
 /**
  *  A dictionary of video stream URLs.
  *
- *  The keys are the YouTube [itag](https://en.wikipedia.org/wiki/YouTube#Quality_and_codecs) values as `NSNumber` objects. The values are the video URLs as `NSURL` objects. There is also the special `XCDYouTubeVideoQualityHTTPLiveStreaming` key for live videos.
+ *  The keys are the YouTube [itag](https://en.wikipedia.org/wiki/YouTube#Quality_and_formats) values as `NSNumber` objects. The values are the video URLs as `NSURL` objects. There is also the special `XCDYouTubeVideoQualityHTTPLiveStreaming` key for live videos.
  *
- *  You must not store the URLs for later use since they have a limited lifetime.
+ *  You should not store the URLs for later use since they have a limited lifetime and are bound to an IP address.
  *
  *  @see XCDYouTubeVideoQuality
+ *  @see expirationDate
  */
+#if __has_feature(objc_generics)
+@property (nonatomic, readonly) NSDictionary<id, NSURL *> *streamURLs;
+#else
 @property (nonatomic, readonly) NSDictionary *streamURLs;
+#endif
+
+/**
+ *  The expiration date of the video.
+ *
+ *  After this date, the stream URLs will not be playable. May be nil if it can not be determined, for example in live videos.
+ */
+@property (nonatomic, readonly, nullable) NSDate *expirationDate;
 
 @end
+
+NS_ASSUME_NONNULL_END

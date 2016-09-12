@@ -1,17 +1,26 @@
 //
-//  Copyright (c) 2013-2014 Cédric Luthi. All rights reserved.
+//  Copyright (c) 2013-2016 Cédric Luthi. All rights reserved.
 //
+
+#if !__has_feature(nullability)
+#define NS_ASSUME_NONNULL_BEGIN
+#define NS_ASSUME_NONNULL_END
+#define nullable
+#define __nullable
+#endif
 
 #import <Foundation/Foundation.h>
 
-#import "XCDYouTubeOperation.h"
-#import "XCDYouTubeVideo.h"
-#import "XCDYouTubeError.h"
+#import <XCDYouTubeKit/XCDYouTubeOperation.h>
+#import <XCDYouTubeKit/XCDYouTubeVideo.h>
+#import <XCDYouTubeKit/XCDYouTubeError.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  The `XCDYouTubeClient` class is responsible for interacting with the YouTube API. Given a YouTube video identifier, you will get video information with the `-getVideoWithIdentifier:completionHandler:` method.
+ *  The `XCDYouTubeClient` class is responsible for interacting with the YouTube API. Given a YouTube video identifier, you will get video information with the `<-getVideoWithIdentifier:completionHandler:>` method.
  *
- *  On iOS, you probably don’t want to use `XCDYouTubeClient` directly but the higher level class `XCDYouTubeVideoPlayerViewController`.
+ *  On iOS, you probably don’t want to use `XCDYouTubeClient` directly but the higher level class `<XCDYouTubeVideoPlayerViewController>`.
  */
 @interface XCDYouTubeClient : NSObject
 
@@ -35,7 +44,7 @@
  *
  *  @return A client with the specified language identifier.
  */
-- (instancetype) initWithLanguageIdentifier:(NSString *)languageIdentifier;
+- (instancetype) initWithLanguageIdentifier:(nullable NSString *)languageIdentifier;
 
 /**
  *  ---------------------------------
@@ -62,12 +71,14 @@
  *  @param videoIdentifier   A 11 characters YouTube video identifier. If the video identifier is invalid (including nil) the completion handler will be called with an error with `XCDYouTubeVideoErrorDomain` domain and `XCDYouTubeErrorInvalidVideoIdentifier` code.
  *  @param completionHandler A block to execute when the client finishes the operation. The completion handler is executed on the main thread. If the completion handler is nil, this method throws an exception.
  *
- *  @discussion If the operation completes successfully, the video parameter of the handler block contains a `XCDYouTubeVideo` object, and the error parameter is nil. If the operation fails, the video parameter is nil and the error parameter contains information about the failure. The error's domain is always `XCDYouTubeVideoErrorDomain`.
+ *  @discussion If the operation completes successfully, the video parameter of the handler block contains a `<XCDYouTubeVideo>` object, and the error parameter is nil. If the operation fails, the video parameter is nil and the error parameter contains information about the failure. The error's domain is always `XCDYouTubeVideoErrorDomain`.
  *
  *  @see XCDYouTubeErrorCode
  *
- *  @return An opaque object conforming to the `XCDYouTubeOperation` protocol for canceling the asynchronous video information operation. If you call the `cancel` method before the operation is finished, the completion handler will not be called. It is recommended that you store this opaque object as a weak property.
+ *  @return An opaque object conforming to the `<XCDYouTubeOperation>` protocol for canceling the asynchronous video information operation. If you call the `cancel` method before the operation is finished, the completion handler will not be called. It is recommended that you store this opaque object as a weak property.
  */
-- (id<XCDYouTubeOperation>) getVideoWithIdentifier:(NSString *)videoIdentifier completionHandler:(void (^)(XCDYouTubeVideo *video, NSError *error))completionHandler __attribute__((nonnull(2)));
+- (id<XCDYouTubeOperation>) getVideoWithIdentifier:(nullable NSString *)videoIdentifier completionHandler:(void (^)(XCDYouTubeVideo * __nullable video, NSError * __nullable error))completionHandler;
 
 @end
+
+NS_ASSUME_NONNULL_END

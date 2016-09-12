@@ -1,8 +1,8 @@
 //
-//  Copyright (c) 2013-2014 Cédric Luthi. All rights reserved.
+//  Copyright (c) 2013-2016 Cédric Luthi. All rights reserved.
 //
 
-#import "XCDYouTubeVideo.h"
+#import <XCDYouTubeKit/XCDYouTubeVideo.h>
 
 #import "XCDYouTubePlayerScript.h"
 
@@ -10,8 +10,8 @@
 
 extern NSString *const XCDYouTubeNoStreamVideoUserInfoKey;
 
-extern NSDictionary *XCDDictionaryWithQueryString(NSString *string, NSStringEncoding encoding);
-extern NSString *XCDQueryStringWithDictionary(NSDictionary *dictionary, NSStringEncoding encoding);
+extern NSDictionary *XCDDictionaryWithQueryString(NSString *string);
+extern NSString *XCDQueryStringWithDictionary(NSDictionary *dictionary);
 
 @interface XCDYouTubeVideo ()
 
