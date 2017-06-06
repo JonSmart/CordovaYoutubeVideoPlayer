@@ -4,6 +4,7 @@
 //  Created by Adrien Girbone on 15/04/2014.
 //
 //
+#import <AVFoundation/AVFoundation.h> // Imported for AVAudioSession to get sound through speakers.
 
 #import "YoutubeVideoPlayer.h"
 #import "XCDYouTubeKit.h"
@@ -18,6 +19,15 @@
     NSString* videoID = [command.arguments objectAtIndex:0];
     
     if (videoID != nil) {
+        //@TODO: Do this right...  Grabbing an audio session for now just to get audio.
+        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+        BOOL ok;
+        NSError *setCategoryError = nil;
+        ok = [audioSession setCategory:AVAudioSessionCategoryPlayback
+                                 error:&setCategoryError];
+        if (!ok) {
+            NSLog(@"%s setCategoryError=%@", __PRETTY_FUNCTION__, setCategoryError);
+        }
         
         XCDYouTubeVideoPlayerViewController *videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc] initWithVideoIdentifier:videoID];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerPlaybackDidFinish:) name:MPMoviePlayerPlaybackDidFinishNotification object:videoPlayerViewController.moviePlayer];
