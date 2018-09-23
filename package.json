@@ -1,24 +1,30 @@
 {
-	"name": "com.bunkerpalace.cordova.YoutubeVideoPlayer",
-	"description": "Play Youtube Videos in a native Video Player on Android & iOS.",
-	"version": "1.0.1",
-	"scripts": {
-        	"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"repository": {
-	        "type": "git",
-	        "url": "git+https://github.com/apiaget/CordovaYoutubeVideoPlayer.git"
-    	},
-	"cordova": {
-		"id": "com.bunkerpalace.cordova.YoutubeVideoPlayer",
-		"platforms": [
-			"android",
-			"ios"
-		]
-	},
-	"engines": {
-		"cordovaDependencies": {
-		}
-	},
-	"keywords": []
+  "name": "com.bunkerpalace.cordova.youtubevideoplayer",
+  "description": "Play Youtube Videos in a native Video Player on Android & iOS.",
+  "version": "1.0.1",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apiaget/CordovaYoutubeVideoPlayer.git"
+  },
+  "cordova": {
+    "id": "com.bunkerpalace.cordova.YoutubeVideoPlayer",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "engines": {
+    "cordovaDependencies": {}
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/apiaget/CordovaYoutubeVideoPlayer/issues"
+  },
+  "homepage": "https://github.com/apiaget/CordovaYoutubeVideoPlayer#readme",
+  "main": "index.js",
+  "author": "",
+  "license": "MIT"
 }
