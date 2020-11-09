@@ -57,7 +57,7 @@ public class YoutubeVideoPlayer extends CordovaPlugin {
 				if(YouTubeIntents.canResolvePlayVideoIntentWithOptions(cordovaContext)){
 					intent = YouTubeIntents.createPlayVideoIntentWithOptions(cordovaContext, videoId, true, true);
 				} else {
-					intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + videoId), cordovaContext, YouTubeActivity.class);
+					intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube-nocookie.com/embed/" + videoId), cordovaContext, YouTubeActivity.class);
 					intent.putExtra("videoId", videoId);
 	                ConfigXmlParser parser = new ConfigXmlParser();
 	                parser.parse(cordovaContext);
