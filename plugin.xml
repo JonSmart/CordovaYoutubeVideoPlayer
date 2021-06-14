@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<plugin xmlns="http://cordova.apache.org/ns/plugins/1.0" id="cordova-plugin-youtube-video-player" version="2.4.0">
+<plugin xmlns="http://cordova.apache.org/ns/plugins/1.0" id="cordova-plugin-youtube-video-player" version="2.4.2">
 
     <name>CordovaYoutubeVideoPlayer</name>
 
