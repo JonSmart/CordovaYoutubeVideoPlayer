@@ -57,7 +57,7 @@
             </config-file>
 
             
-            <framework src="XCDYouTubeKit" type="podspec" spec="~> 2.12" />
+            <framework src="XCDYouTubeKit" type="podspec" spec="~> 2.15.2" />
             <header-file src="platforms/ios/YoutubeVideoPlayerProject/Plugins/com.bunkerpalace.cordova.YoutubeVideoPlayer/YoutubeVideoPlayer.h"/>
             <source-file src="platforms/ios/YoutubeVideoPlayerProject/Plugins/com.bunkerpalace.cordova.YoutubeVideoPlayer/YoutubeVideoPlayer.m"/>
 
